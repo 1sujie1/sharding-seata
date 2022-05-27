@@ -1,0 +1,87 @@
+spring:
+  shardingsphere:
+    datasource:
+      names: master0,slave0,master1,slave1,slave2
+      master0:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://134.175.243.128:12345/master0?characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+        username: root
+        password: 123456
+
+      slave0:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://134.175.243.128:12346/master0?characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+        username: root
+        password: 123456
+
+      master1:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://134.175.243.128:12347/master1?characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+        username: root
+        password: 123456
+
+      slave1:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://134.175.243.128:12348/master1?characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+        username: root
+        password: 123456
+
+      slave2:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://134.175.243.128:12349/master0?characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+        username: root
+        password: 123456
+
+    # sharding db by age
+    sharding:
+
+      #      tables:
+      #
+      #        ds_account:
+      #          #配置真实表分布
+      #          actual-data-nodes: ds0.ds_account
+      #
+      #          key-generator:
+      #            column: id
+      #            type: SNOWFLAKE
+
+      master-slave-rules:
+        ds0:
+          master-data-source-name: master0
+          slave-data-source-names[0]: slave0
+          slave-data-source-names[1]: slave2
+          #负载均衡算法 ROUND_ROBIN 轮询 RANDOM 随机访问
+          load-balance-algorithm-type: ROUND_ROBIN
+
+        ds1:
+          master-data-source-name: master1
+          slave-data-source-names[0]: slave1
+          load-balance-algorithm-type: ROUND_ROBIN
+
+      #绑定表
+      #      binding-tables[0]: ds_user,ds_order
+
+      #广播表
+      #      broadcast-tables[0]: ds_config
+      #      broadcast-tables[1]: ds_account
+
+      #未配置分片规则的表将通过默认数据源定位
+      default-data-source-name: ds0
+      #默认的主键生成算法
+      default-key-generator:
+        column: id
+        type: SNOWFLAKE
+
+    props:
+      sql:
+        show: true
+
+#    masterslave:
+#      name: t_m
+#      master-data-source-name: master0
+#      slave-data-source-names: slave0

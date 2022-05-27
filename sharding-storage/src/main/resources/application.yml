@@ -1,0 +1,5 @@
+#默认使用配置
+spring:
+  profiles:
+    active: dev
+    include: datasource,redis,shardingsphere,seata,nacos

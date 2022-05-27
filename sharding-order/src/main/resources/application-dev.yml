@@ -1,0 +1,21 @@
+logging:
+  file:
+    name: log.log
+  level:
+    root: info
+
+
+feign:
+  client:
+    config:
+      sharding-user-service:
+        # 连接超时时间，默认2s，设置单位为毫秒
+        connectTimeout: 5000
+        # 请求处理超时时间，默认5s，设置单位为毫秒。
+        readTimeout: 5000
+
+      sharding-storage-service:
+        # 连接超时时间，默认2s，设置单位为毫秒
+        connectTimeout: 5000
+        # 请求处理超时时间，默认5s，设置单位为毫秒。
+        readTimeout: 5000

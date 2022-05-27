@@ -1,0 +1,36 @@
+seata:
+  #是否开启spring-boot自动装配
+  enabled: true
+  application-id: account-service
+  #是否开启数据源自动代理
+  enableAutoDataSourceProxy: true
+  #事务组名称
+  #指定事务分组至集群映射关系（等号右侧的集群名需要与Seata-server注册到Nacos的cluster保持一致）
+  tx-service-group: account-service-group
+
+  config:
+    type: nacos
+    nacos:
+      server-addr: 127.0.0.1:8848
+      group: SEATA_GROUP
+      namespace: seata-namespace
+
+  registry:
+    type: nacos
+    nacos:
+      application: seata-server
+      cluster: cd-seata-group
+      server-addr: 127.0.0.1:8848
+      group: SEATA_GROUP
+      namespace: seata-namespace
+
+#  service:
+#    disable-global-transaction: false
+#    vgroup-mapping:
+#      cd-tx-group: cd-seata-group
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

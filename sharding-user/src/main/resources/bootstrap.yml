@@ -1,0 +1,25 @@
+server:
+  port: 8003
+
+spring:
+  application:
+    name: sharding-user-service
+  main:
+    allow-bean-definition-overriding: true
+
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 106.52.253.159:10010
+        namespace: koinpay
+
+      config:
+        namespace: koinpay
+        server-addr: 106.52.253.159:10010
+        username: nacos
+        password: nacos
+        group: DEFAULT_GROUP
+        refresh-enabled: true
+        #手动设置默认dataId名称无需按nacos默认配置文件方式构造dataId
+        name: account.yml
+        file-extension: yaml
