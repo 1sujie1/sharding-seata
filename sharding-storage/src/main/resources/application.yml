@@ -2,4 +2,4 @@
 spring:
   profiles:
     active: dev
-    include: datasource,redis,shardingsphere,seata,nacos
+    include: redis,shardingsphere,seata,nacos

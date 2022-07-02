@@ -10,12 +10,12 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 127.0.0.1:8848
-        namespace: koinpay
+        server-addr: 106.52.253.159:10010
+        namespace: coinpay
 
       config:
-        namespace: koinpay
-        server-addr: 127.0.0.1:8848
+        namespace: coinpay
+        server-addr: 106.52.253.159:10010
         username: nacos
         password: nacos
         group: DEFAULT_GROUP

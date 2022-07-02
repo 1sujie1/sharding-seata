@@ -1,5 +1,8 @@
 spring:
+  #  autoconfigure:
+  #    exclude: com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure
   shardingsphere:
+    enabled: true
     datasource:
       names: master0,slave0,master1,slave1,slave2
       master0:
@@ -9,6 +12,27 @@ spring:
         username: root
         password: 123456
 
+        # 配置初始化大小、最小、最大
+        initial-size: 2
+        max-active: 18
+        min-idle: 2
+
+        # 获取链接等待超时时间
+        max-wait: 60000
+        pool-prepared-statements: true
+        #
+        validation-query: SELECT 1
+        test-on-borrow: false
+        test-on-return: false
+        test-while-idle: true
+        # 间隔多久进行一次检测，检测须要关闭的空闲链接
+        time-between-eviction-runs-millis: 60000
+        # 一个链接在链接池中最小的生存时间
+        min-evictable-idle-time-millis: 300000
+        max-pool-prepared-statement-per-connection-size: 20
+        # 合并多个DruidDataSource的监控数据
+        use-global-data-source-stat: true
+
       slave0:
         type: com.alibaba.druid.pool.DruidDataSource
         driver-class-name: com.mysql.cj.jdbc.Driver
@@ -16,12 +40,53 @@ spring:
         username: root
         password: 123456
 
+        # 配置初始化大小、最小、最大
+        initial-size: 3
+        max-active: 40
+        min-idle: 2
+
+        # 获取链接等待超时时间
+        max-wait: 60000
+        pool-prepared-statements: true
+        #
+        validation-query: SELECT 1
+        test-on-borrow: false
+        test-on-return: false
+        test-while-idle: true
+        # 间隔多久进行一次检测，检测须要关闭的空闲链接
+        time-between-eviction-runs-millis: 60000
+        # 一个链接在链接池中最小的生存时间
+        min-evictable-idle-time-millis: 300000
+        max-pool-prepared-statement-per-connection-size: 20
+        # 合并多个DruidDataSource的监控数据
+        use-global-data-source-stat: true
+
       master1:
         type: com.alibaba.druid.pool.DruidDataSource
         driver-class-name: com.mysql.cj.jdbc.Driver
         url: jdbc:mysql://134.175.243.128:12347/master1?characterEncoding=utf-8&serverTimezone=Asia/Shanghai
         username: root
         password: 123456
+        # 配置初始化大小、最小、最大
+        initial-size: 5
+        max-active: 20
+        min-idle: 5
+
+        # 获取链接等待超时时间
+        max-wait: 60000
+        pool-prepared-statements: true
+        #
+        validation-query: SELECT 1
+        test-on-borrow: false
+        test-on-return: false
+        test-while-idle: true
+        # 间隔多久进行一次检测，检测须要关闭的空闲链接
+        time-between-eviction-runs-millis: 60000
+        # 一个链接在链接池中最小的生存时间
+        min-evictable-idle-time-millis: 300000
+        max-pool-prepared-statement-per-connection-size: 20
+        # 合并多个DruidDataSource的监控数据
+        use-global-data-source-stat: true
 
       slave1:
         type: com.alibaba.druid.pool.DruidDataSource
@@ -29,6 +94,26 @@ spring:
         url: jdbc:mysql://134.175.243.128:12348/master1?characterEncoding=utf-8&serverTimezone=Asia/Shanghai
         username: root
         password: 123456
+        # 配置初始化大小、最小、最大
+        initial-size: 5
+        max-active: 20
+        min-idle: 5
+
+        # 获取链接等待超时时间
+        max-wait: 60000
+        pool-prepared-statements: true
+        #
+        validation-query: SELECT 1
+        test-on-borrow: false
+        test-on-return: false
+        test-while-idle: true
+        # 间隔多久进行一次检测，检测须要关闭的空闲链接
+        time-between-eviction-runs-millis: 60000
+        # 一个链接在链接池中最小的生存时间
+        min-evictable-idle-time-millis: 300000
+        max-pool-prepared-statement-per-connection-size: 20
+        # 合并多个DruidDataSource的监控数据
+        use-global-data-source-stat: true
 
       slave2:
         type: com.alibaba.druid.pool.DruidDataSource
@@ -36,15 +121,34 @@ spring:
         url: jdbc:mysql://134.175.243.128:12349/master0?characterEncoding=utf-8&serverTimezone=Asia/Shanghai
         username: root
         password: 123456
+        # 配置初始化大小、最小、最大
+        initial-size: 5
+        max-active: 20
+        min-idle: 5
 
-    # sharding db by age
+        # 获取链接等待超时时间
+        max-wait: 60000
+        pool-prepared-statements: true
+        #
+        validation-query: SELECT 1
+        test-on-borrow: false
+        test-on-return: false
+        test-while-idle: true
+        # 间隔多久进行一次检测，检测须要关闭的空闲链接
+        time-between-eviction-runs-millis: 60000
+        # 一个链接在链接池中最小的生存时间
+        min-evictable-idle-time-millis: 300000
+        max-pool-prepared-statement-per-connection-size: 20
+        # 合并多个DruidDataSource的监控数据
+        use-global-data-source-stat: true
+
+    #分片表
     sharding:
-
       tables:
 
         ds_storage:
           #配置真实表分布
-#          actual-data-nodes: ds0.ds_storage
+          #          actual-data-nodes: ds0.ds_storage
 
           key-generator:
             column: id
@@ -54,13 +158,13 @@ spring:
         ds0:
           master-data-source-name: master0
           slave-data-source-names[0]: slave0
-          slave-data-source-names[1]: slave2
           #负载均衡算法 ROUND_ROBIN 轮询 RANDOM 随机访问
           load-balance-algorithm-type: ROUND_ROBIN
 
         ds1:
           master-data-source-name: master1
           slave-data-source-names[0]: slave1
+          slave-data-source-names[1]: slave2
           load-balance-algorithm-type: ROUND_ROBIN
 
       #绑定表
@@ -80,8 +184,3 @@ spring:
     props:
       sql:
         show: true
-
-#    masterslave:
-#      name: t_m
-#      master-data-source-name: master0
-#      slave-data-source-names: slave0

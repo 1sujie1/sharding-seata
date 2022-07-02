@@ -49,17 +49,17 @@
 #        login-password: 123456
 #        allow:
 #        deny:
-
-mybatis-plus:
-  mapper-locations: classpath*:/mapper/**Mapper.xml
-  typeAliasesPackage: com.test.shardingstorage.entity
-  global-config:
-    id-type: 0
-    field-strategy: 2
-    db-column-underline: true
-    refresh-mapper: true
-  configuration:
-    #    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-    #开启驼峰命名
-    map-underscore-to-camel-case: true
-    cache-enabled: false
+#
+#mybatis-plus:
+#  mapper-locations: classpath*:/mapper/**Mapper.xml
+#  typeAliasesPackage: com.test.shardingstorage.entity
+#  global-config:
+#    id-type: 0
+#    field-strategy: 2
+#    db-column-underline: true
+#    refresh-mapper: true
+#  configuration:
+#    #    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#    #开启驼峰命名
+#    map-underscore-to-camel-case: true
+#    cache-enabled: false
